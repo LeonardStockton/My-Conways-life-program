@@ -14,7 +14,7 @@ namespace My_Conways_Game_Of_Life
         [STAThread]
         static void Main()
         {
-      
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

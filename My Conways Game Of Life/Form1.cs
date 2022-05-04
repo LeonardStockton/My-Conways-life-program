@@ -17,7 +17,7 @@ namespace My_Conways_Game_Of_Life
 
         // Drawing colors
         Color gridColor = Color.Black;
-        Color cellColor = Color.Gray;
+        Color cellColor = Color.Red;
 
         // The Timer class
         Timer timer = new Timer();
@@ -38,6 +38,35 @@ namespace My_Conways_Game_Of_Life
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    //int count = CountNeighbor
+
+
+                    //Apply rules:
+                    /* Any living cell in the current universe with less than 2 living neighbors dies in the next generation as if by under-population.
+                     * If a cell meets this criteria in the universe array then make the same cell dead in the scratch pad array.
+                     */ 
+
+                     /* Any living cell with more than 3 living neighbors will die in the next generation as if by over-population.
+                     * If so in the universe then kill it in the scratch pad.
+                     */ 
+
+                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
+                     * If this is the case in the universe then the same cell lives in the scratch pad.
+                     */ 
+
+
+                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
+                     * If so in the universe then make that cell alive in the scratch pad.*/
+
+                    //Turn in on/off with the ScratchPad
+                }
+            }
+            //Copy the ScratchPad to the universe
 
 
             // Increment generation count
@@ -53,8 +82,10 @@ namespace My_Conways_Game_Of_Life
             NextGeneration();
         }
 
-        private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
+        private void graphicsPanel1_Paint(object sender, PaintEventArgs e)//DO NOT INVALIDATE THE PAINT\\
         {
+            //floats will make this look better 
+
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
             int cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
@@ -63,11 +94,23 @@ namespace My_Conways_Game_Of_Life
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(gridColor, 1);
+            /* The pin is used for line. Pens are class so they need to be newed. 
+             * There also three differnt overloads for them and a numeber of 
+             * constructors for Pens. */
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
+            /* Brushes are used to fill the interors of things.The Brush class is
+             * a ABC so you can not instancate it. There is no constructor so you have to 
+             * construct one of the classes that is dirived from it. There are three 
+             * different ones: a solid brush, a textrued brush(uses a bit map),
+             * a gradiante( which use two colors.*/
 
             // Iterate through the universe in the y, top to bottom
+            /*Nested for loops are the main type of loops to move threw the universe.
+             * this is for flow control. this will be used in a number of places 
+             */
+            /* this setup is from left to right, top to bottom.*/
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -104,7 +147,7 @@ namespace My_Conways_Game_Of_Life
                 // Calculate the width and height of each cell in pixels
                 int cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
                 int cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
-
+                /*scales down*/
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
                 int x = e.X / cellWidth;
@@ -118,5 +161,43 @@ namespace My_Conways_Game_Of_Life
                 graphicsPanel1.Invalidate();
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //need to destroy the main window
+            this.Close();
+        }
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                }
+            }
+            graphicsPanel1.Invalidate();
+        }
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            NextGeneration();
+        }
+
+       
     }
 }
