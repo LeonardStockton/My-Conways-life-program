@@ -31,7 +31,7 @@ namespace My_Conways_Game_Of_Life
         public Form1()
         {
             InitializeComponent();
-            CountNeighborsFinite(x, y);
+            NeighborCountMethods.CountNeighborsFinite(x, y);
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -202,6 +202,6 @@ namespace My_Conways_Game_Of_Life
             NextGeneration();
         }
 
-       
+
     }
 }

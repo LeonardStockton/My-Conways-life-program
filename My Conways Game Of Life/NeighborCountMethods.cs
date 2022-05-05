@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace My_Conways_Game_Of_Life
 {
-    class NeighborCountMethods
+    public class NeighborCountMethods
     {
         bool[,] universe = new bool[5, 5];
-        private int CountNeighborsFinite(int x, int y)
+        int CountNeighborsFinite(int x, int y)
         {
             
             int count = 0;
