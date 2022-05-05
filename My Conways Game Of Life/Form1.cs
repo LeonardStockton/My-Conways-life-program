@@ -12,6 +12,9 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Form1 : Form
     {
+        //member feilds
+        int x;
+        int y;
         // The universe array
         bool[,] universe = new bool[5, 5];
 
@@ -28,7 +31,7 @@ namespace My_Conways_Game_Of_Life
         public Form1()
         {
             InitializeComponent();
-
+            CountNeighborsFinite(x, y);
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -161,6 +164,7 @@ namespace My_Conways_Game_Of_Life
                 graphicsPanel1.Invalidate();
             }
         }
+        
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
