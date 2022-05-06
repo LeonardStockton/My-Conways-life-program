@@ -31,7 +31,6 @@ namespace My_Conways_Game_Of_Life
         public Form1()
         {
             InitializeComponent();
-            NeighborCountMethods.CountNeighborsFinite(x, y);
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -70,8 +69,22 @@ namespace My_Conways_Game_Of_Life
                 }
             }
             //Copy the ScratchPad to the universe
-
-
+            private void RandomGenerator()
+            {
+                Random rand=new Random();//time
+                //Random randSeed=new Random(Int32);
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    // Iterate through the universe in the x, left to right
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        //call next-return random number
+                        //if Random num is =to 0 turn the cells on else turn off 
+                        //invaladate
+                        //seed needs a dialog box
+                    }
+                }
+            }
             // Increment generation count
             generations++;
 
@@ -308,6 +321,10 @@ namespace My_Conways_Game_Of_Life
             }
             graphicsPanel1.Invalidate();
         }
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -327,6 +344,6 @@ namespace My_Conways_Game_Of_Life
             NextGeneration();
         }
 
-
+      
     }
 }
