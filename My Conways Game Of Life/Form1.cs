@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,15 +13,15 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Form1 : Form
     {
-        //member feilds
-        int x;
-        int y;
+
         // The universe array
-        bool[,] universe = new bool[5, 5];
+        bool[,] universe = new bool[10, 10];
+        bool[,] scratchPad = new bool[10, 10];
+        bool alive = true;
 
         // Drawing colors
         Color gridColor = Color.Black;
-        Color cellColor = Color.Red;
+        Color cellColor = Color.Gray;
 
         // The Timer class
         Timer timer = new Timer();
@@ -32,60 +33,80 @@ namespace My_Conways_Game_Of_Life
         {
             InitializeComponent();
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = 1000; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = true; // start timer running
         }
 
+
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            
+
+            bool[,] temp = universe;
+            universe = scratchPad;
+            scratchPad = temp;
+            
+            
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     //int count = CountNeighbor
-
-
+                    int count = CountNeighborsFinite(x, y);
+                    //if (scratchPad[x,y]=(count<2||count>3))
+                    //{
+                    //    alive;
+                    //}
                     //Apply rules:
                     /* Any living cell in the current universe with less than 2 living neighbors dies in the next generation as if by under-population.
                      * If a cell meets this criteria in the universe array then make the same cell dead in the scratch pad array.
-                     */ 
+                     */
+                    if (count < 2 )
+                    {
+                        //NextGeneration();
+                        //needs to turn cell off 
+                        alive=false;
+                        
+                        graphicsPanel1.Invalidate();
+                    }
 
-                     /* Any living cell with more than 3 living neighbors will die in the next generation as if by over-population.
-                     * If so in the universe then kill it in the scratch pad.
-                     */ 
+                    /* Any living cell with more than 3 living neighbors will die in the next generation as if by over-population.
+                    * If so in the universe then kill it in the scratch pad.
+                    */
+                    if (count > 3)
+                    {
+                        //NextGeneration();
+                        alive = false;
+                        
+                        graphicsPanel1.Invalidate();
+                    }
+                    /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
+                    * If this is the case in the universe then the same cell lives in the scratch pad.
+                    */
+                    if (universe[x, y] = (count ==2 || count == 3))
+                    {
+                        //NextGeneration();
+                        graphicsPanel1.Invalidate();
+                    }
 
-                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
-                     * If this is the case in the universe then the same cell lives in the scratch pad.
-                     */ 
-
-
-                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
-                     * If so in the universe then make that cell alive in the scratch pad.*/
+                    /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
+                    * If so in the universe then make that cell alive in the scratch pad.*/
+                    if (count ==3)
+                    {
+                        alive = true;
+                        
+                        continue;
+                        graphicsPanel1.Invalidate();
+                    }
 
                     //Turn in on/off with the ScratchPad
                 }
             }
             //Copy the ScratchPad to the universe
-            private void RandomGenerator()
-            {
-                Random rand=new Random();//time
-                //Random randSeed=new Random(Int32);
-                for (int y = 0; y < universe.GetLength(1); y++)
-                {
-                    // Iterate through the universe in the x, left to right
-                    for (int x = 0; x < universe.GetLength(0); x++)
-                    {
-                        //call next-return random number
-                        //if Random num is =to 0 turn the cells on else turn off 
-                        //invaladate
-                        //seed needs a dialog box
-                    }
-                }
-            }
-            // Increment generation count
+         
             generations++;
 
             // Update status strip generations
@@ -147,6 +168,30 @@ namespace My_Conways_Game_Of_Life
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    //write the number of living or dead cells
+                    bool current = universe[x, y];
+                    Rectangle cellNum = new Rectangle(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    int cNum = CountNeighborsFinite(x, y);
+                    // Set up font & sizing
+                    Font font = new Font("Arial", 13f);
+
+                    // Create stringformat object & center the alignments 
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    if (current == true)
+                    {
+                        if (cNum < 2 || cNum > 3)
+                        {
+                            e.Graphics.DrawString(cNum.ToString(), font, Brushes.Red, cellNum, stringFormat);
+                        }
+                        else if (cNum == 2 || cNum == 3)
+                        {
+                            e.Graphics.DrawString(cNum.ToString(), font, Brushes.Green, cellNum, stringFormat);
+                        }
+                    }
+
+
                 }
             }
 
@@ -177,132 +222,129 @@ namespace My_Conways_Game_Of_Life
                 graphicsPanel1.Invalidate();
             }
         }
-        private class NeighborCountMethods
+
+
+        public int CountNeighborsFinite(int x, int y)
         {
-            bool[,] universe = new bool[5, 5];
-            int CountNeighborsFinite(int x, int y)
-            {
 
-                int count = 0;
+            int count = 0;
 
-                int xLen = universe.GetLength(0);
+            int xLen = universe.GetLength(0);
 
-                int yLen = universe.GetLength(1);
+            int yLen = universe.GetLength(1);
 
-                for (int yOffset = -1; yOffset <= 1; yOffset++)
-
-                {
-
-                    for (int xOffset = -1; xOffset <= 1; xOffset++)
-
-                    {
-
-                        int xCheck = x + xOffset;
-
-                        int yCheck = y + yOffset;
-
-                        // if xOffset and yOffset are both equal to 0 then continue
-                        if (xOffset == 0)
-                        {
-                            continue;
-                        }
-                        if (yOffset == 0)
-                        {
-                            continue;
-                        }
-                        // if xCheck is less than 0 then continue
-                        if (xCheck < 0)
-                        {
-                            continue;
-                        }
-                        // if yCheck is less than 0 then continue
-                        if (yCheck < 0)
-                        {
-                            continue;
-                        }
-                        // if xCheck is greater than or equal too xLen then continue
-                        if (xCheck >= xLen)
-                        {
-                            continue;
-                        }
-                        // if yCheck is greater than or equal too yLen then continue
-                        if (yCheck >= yLen)
-                        {
-                            continue;
-                        }
-
-
-                        if (universe[xCheck, yCheck] == true) count++;
-
-                    }
-
-                }
-                return count;
-
-            }
-            private int CountNeighborsToroidal(int x, int y)
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
 
             {
 
-                int count = 0;
-
-                int xLen = universe.GetLength(0);
-
-                int yLen = universe.GetLength(1);
-
-                for (int yOffset = -1; yOffset <= 1; yOffset++)
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
 
                 {
 
-                    for (int xOffset = -1; xOffset <= 1; xOffset++)
+                    int xCheck = x + xOffset;
 
+                    int yCheck = y + yOffset;
+
+                    // if xOffset and yOffset are both equal to 0 then continue
+                    if (xOffset == 0 && yOffset == 0)
                     {
-
-                        int xCheck = x + xOffset;
-
-                        int yCheck = y + yOffset;
-
-                        // if xOffset and yOffset are both equal to 0 then continue
-                        if (xOffset == 0)
-                        {
-                            continue;
-                        }
-                        if (yOffset == 0)
-                        {
-                            continue;
-                        }
-                        // if xCheck is less than 0 then set to xLen - 1
-                        if (xCheck < 0)
-                        {
-                            xLen = -1;
-                        }
-                        // if yCheck is less than 0 then set to yLen - 1
-                        if (yCheck < 0)
-                        {
-                            yLen = -1;
-                        }
-                        // if xCheck is greater than or equal too xLen then set to 0
-                        if (xCheck >= xLen)
-                        {
-                            xLen = 0;
-                        }
-                        // if yCheck is greater than or equal too yLen then set to 0
-                        if (yCheck >= yLen)
-                        {
-                            yLen = 0;
-                        }
-
-
-                        if (universe[xCheck, yCheck] == true) count++;
-
+                        continue;
                     }
+                    if (yOffset == 0)
+                    {
+                        continue;
+                    }
+                    // if xCheck is less than 0 then continue
+                    if (xCheck < 0)
+                    {
+                        continue;
+                    }
+                    // if yCheck is less than 0 then continue
+                    if (yCheck < 0)
+                    {
+                        continue;
+                    }
+                    // if xCheck is greater than or equal too xLen then continue
+                    if (xCheck >= xLen)
+                    {
+                        continue;
+                    }
+                    // if yCheck is greater than or equal too yLen then continue
+                    if (yCheck >= yLen)
+                    {
+                        continue;
+                    }
+
+
+                    if (universe[xCheck, yCheck] == true) count++;
 
                 }
 
-                return count;
-
             }
+            return count;
+
         }
+        int CountNeighborsToroidal(int x, int y)
+
+        {
+
+            int count = 0;
+
+            int xLen = universe.GetLength(0);
+
+            int yLen = universe.GetLength(1);
+
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
+
+            {
+
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
+
+                {
+
+                    int xCheck = x + xOffset;
+
+                    int yCheck = y + yOffset;
+
+                    // if xOffset and yOffset are both equal to 0 then continue
+                    if (xOffset == 0 && yOffset == 0)
+                    {
+                        continue;
+                    }
+                    // if xCheck is less than 0 then set to xLen - 1
+                    if (xCheck < 0)
+                    {
+                        xLen = -1;
+                    }
+                    // if yCheck is less than 0 then set to yLen - 1
+                    if (yCheck < 0)
+                    {
+                        yLen = -1;
+                    }
+                    // if xCheck is greater than or equal too xLen then set to 0
+                    if (xCheck >= xLen)
+                    {
+                        xLen = 0;
+                    }
+                    // if yCheck is greater than or equal too yLen then set to 0
+                    if (yCheck >= yLen)
+                    {
+                        yLen = 0;
+                    }
+
+
+                    if (universe[xCheck, yCheck] == true)
+                    {
+                        count++;
+                    }
+                }
+
+            }
+
+            return count;
+
+        }
+
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -321,109 +363,115 @@ namespace My_Conways_Game_Of_Life
             }
             graphicsPanel1.Invalidate();
         }
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+        //private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //SaveFileDialog dlg = new SaveFileDialog();
+        //dlg.Filter = "All Files|*.*|Cells|*.cells";
+        //dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
 
 
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                StreamWriter writer = new StreamWriter(dlg.FileName);
+        //if (DialogResult.OK == dlg.ShowDialog())
+        //{
+        //    StreamWriter writer = new StreamWriter(dlg.FileName);
 
-                // Write any comments you want to include first.
-                // Prefix all comment strings with an exclamation point.
-                // Use WriteLine to write the strings to the file. 
-                // It appends a CRLF for you.
-                writer.WriteLine("!This is my comment.");
+        //    // Write any comments you want to include first.
+        //    // Prefix all comment strings with an exclamation point.
+        //    // Use WriteLine to write the strings to the file. 
+        //    // It appends a CRLF for you.
+        //    writer.WriteLine("!This is my comment.");
 
-                // Iterate through the universe one row at a time.
-                for (int y = 0; y < universe Height; y++)
-     {
-                    // Create a string to represent the current row.
-                    String currentRow = string.Empty;
+        //    // Iterate through the universe one row at a time.
+        //    for (int y = 0; y < universe.cellHeight; y++)
+        //    {
+        //        // Create a string to represent the current row.
+        //        String currentRow = string.Empty;
 
-                    // Iterate through the current row one cell at a time.
-                    for (int x = 0; x < universe Width; x++)
-          {
-                        // If the universe[x,y] is alive then append 'O' (capital O)
-                        // to the row string.
+        //        // Iterate through the current row one cell at a time.
+        //        for (int x = 0; x < universe. cellWidth; x++)
+        //         {
+        //            // If the universe[x,y] is alive then append 'O' (capital O)
+        //            // to the row string.
+        //            if (universe[x, y] is alive)
+        //            {
+        //            }
+        //            // Else if the universe[x,y] is dead then append '.' (period)
+        //            // to the row string.
+        //            else if (universe[x, y] is dead)
+        //            {
 
-                        // Else if the universe[x,y] is dead then append '.' (period)
-                        // to the row string.
-                    }
+        //            }
+        //        }
 
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
-                }
+        //        // Once the current row has been read through and the 
+        //        // string constructed then write it to the file using WriteLine.
+        //    }
 
-                // After all rows and columns have been written then close the file.
-                writer.Close();
-            }
-        }
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2;
+        //    // After all rows and columns have been written then close the file.
+        //    writer.Close();
+        //}
+        //}
+        //private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    OpenFileDialog dlg = new OpenFileDialog();
+        //    dlg.Filter = "All Files|*.*|Cells|*.cells";
+        //    dlg.FilterIndex = 2;
 
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                StreamReader reader = new StreamReader(dlg.FileName);
+        //    if (DialogResult.OK == dlg.ShowDialog())
+        //    {
+        //        StreamReader reader = new StreamReader(dlg.FileName);
 
-                // Create a couple variables to calculate the width and height
-                // of the data in the file.
-                int maxWidth = 0;
-                int maxHeight = 0;
+        //        // Create a couple variables to calculate the width and height
+        //        // of the data in the file.
+        //        int maxWidth = 0;
+        //        int maxHeight = 0;
 
-                // Iterate through the file once to get its size.
-                while (!reader.EndOfStream)
-                {
-                    // Read one row at a time.
-                    string row = reader.ReadLine();
+        //        // Iterate through the file once to get its size.
+        //        while (!reader.EndOfStream)
+        //        {
+        //            // Read one row at a time.
+        //            string row = reader.ReadLine();
 
-                    // If the row begins with '!' then it is a comment
-                    // and should be ignored.
+        //            // If the row begins with '!' then it is a comment
+        //            // and should be ignored.
 
-                    // If the row is not a comment then it is a row of cells.
-                    // Increment the maxHeight variable for each row read.
+        //            // If the row is not a comment then it is a row of cells.
+        //            // Increment the maxHeight variable for each row read.
 
-                    // Get the length of the current row string
-                    // and adjust the maxWidth variable if necessary.
-                }
+        //            // Get the length of the current row string
+        //            // and adjust the maxWidth variable if necessary.
+        //        }
 
-                // Resize the current universe and scratchPad
-                // to the width and height of the file calculated above.
+        //        // Resize the current universe and scratchPad
+        //        // to the width and height of the file calculated above.
 
-                // Reset the file pointer back to the beginning of the file.
-                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+        //        // Reset the file pointer back to the beginning of the file.
+        //        reader.BaseStream.Seek(0, SeekOrigin.Begin);
 
-                // Iterate through the file again, this time reading in the cells.
-                while (!reader.EndOfStream)
-                {
-                    // Read one row at a time.
-                    string row = reader.ReadLine();
+        //        // Iterate through the file again, this time reading in the cells.
+        //        while (!reader.EndOfStream)
+        //        {
+        //            // Read one row at a time.
+        //            string row = reader.ReadLine();
 
-                    // If the row begins with '!' then
-                    // it is a comment and should be ignored.
+        //            // If the row begins with '!' then
+        //            // it is a comment and should be ignored.
 
-                    // If the row is not a comment then 
-                    // it is a row of cells and needs to be iterated through.
-                    for (int xPos = 0; xPos < row.Length; xPos++)
-                    {
-                        // If row[xPos] is a 'O' (capital O) then
-                        // set the corresponding cell in the universe to alive.
+        //            // If the row is not a comment then 
+        //            // it is a row of cells and needs to be iterated through.
+        //            for (int xPos = 0; xPos < row.Length; xPos++)
+        //            {
+        //                // If row[xPos] is a 'O' (capital O) then
+        //                // set the corresponding cell in the universe to alive.
 
-                        // If row[xPos] is a '.' (period) then
-                        // set the corresponding cell in the universe to dead.
-                    }
-                }
+        //                // If row[xPos] is a '.' (period) then
+        //                // set the corresponding cell in the universe to dead.
+        //            }
+        //        }
 
-                // Close the file.
-                reader.Close();
-            }
-        }
+        //        // Close the file.
+        //        reader.Close();
+        //    }
+        //}
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
 
@@ -436,9 +484,22 @@ namespace My_Conways_Game_Of_Life
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            NextGeneration();
+
         }
 
-      
+        private void contentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Start();
+        }
+
+        private void indexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+        }
+
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NextGeneration();
+        }
     }
 }
