@@ -88,7 +88,7 @@ namespace My_Conways_Game_Of_Life
 
                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
                     * If so in the universe then make that cell alive in the scratch pad.*/
-                    if ((count ==3) && universe[x, y] == false)
+                    if ((count ==3) && universe[x, y] == true)
                     {
                         alive = true;
                         graphicsPanel1.Invalidate();
@@ -173,9 +173,9 @@ namespace My_Conways_Game_Of_Life
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-                    if (current == true)
+                    if (current == true||current==false)
                     {
-                        if (cNum < 2 || cNum > 3)
+                        if ((cNum < 2 || cNum > 3)&&cNum !=0)
                         {
                             e.Graphics.DrawString(cNum.ToString(), font, Brushes.Red, cellNum, stringFormat);
                         }
@@ -304,27 +304,28 @@ namespace My_Conways_Game_Of_Life
                     if (xOffset == 0 && yOffset == 0)
                     {
                         continue;
+                        // if xCheck is less than 0 then set to xLen - 1
+                        if (xCheck < 0)
+                        {
+                            xLen = -1;
+                        }
+                        // if yCheck is less than 0 then set to yLen - 1
+                        if (yCheck < 0)
+                        {
+                            yLen = -1;
+                        }
+                        // if xCheck is greater than or equal too xLen then set to 0
+                        if (xCheck >= xLen)
+                        {
+                            xLen = 0;
+                        }
+                        // if yCheck is greater than or equal too yLen then set to 0
+                        if (yCheck >= yLen)
+                        {
+                            yLen = 0;
+                        }
                     }
-                    // if xCheck is less than 0 then set to xLen - 1
-                    if (xCheck < 0)
-                    {
-                        xLen = -1;
-                    }
-                    // if yCheck is less than 0 then set to yLen - 1
-                    if (yCheck < 0)
-                    {
-                        yLen = -1;
-                    }
-                    // if xCheck is greater than or equal too xLen then set to 0
-                    if (xCheck >= xLen)
-                    {
-                        xLen = 0;
-                    }
-                    // if yCheck is greater than or equal too yLen then set to 0
-                    if (yCheck >= yLen)
-                    {
-                        yLen = 0;
-                    }
+                    
 
 
                     if (universe[xCheck, yCheck] == true)
