@@ -66,7 +66,7 @@ namespace My_Conways_Game_Of_Life
                      */
                     if (count < 2 )
                     {
-                        //NextGeneration();
+                        //NextGeneration();\
                         //needs to turn cell off 
                         alive=false;
                         
@@ -86,9 +86,10 @@ namespace My_Conways_Game_Of_Life
                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
                     * If this is the case in the universe then the same cell lives in the scratch pad.
                     */
-                    if (universe[x, y] = (count ==2 || count == 3))
+                    if (count ==2 || count == 3)
                     {
                         //NextGeneration();
+                        alive = true;
                         graphicsPanel1.Invalidate();
                     }
 
@@ -97,15 +98,15 @@ namespace My_Conways_Game_Of_Life
                     if (count ==3)
                     {
                         alive = true;
-                        
-                        continue;
                         graphicsPanel1.Invalidate();
                     }
 
                     //Turn in on/off with the ScratchPad
+                    scratchPad[x, y] = alive;
                 }
             }
             //Copy the ScratchPad to the universe
+            universe = scratchPad;
          
             generations++;
 
@@ -250,10 +251,7 @@ namespace My_Conways_Game_Of_Life
                     {
                         continue;
                     }
-                    if (yOffset == 0)
-                    {
-                        continue;
-                    }
+                    
                     // if xCheck is less than 0 then continue
                     if (xCheck < 0)
                     {
@@ -276,7 +274,10 @@ namespace My_Conways_Game_Of_Life
                     }
 
 
-                    if (universe[xCheck, yCheck] == true) count++;
+                    if (universe[xCheck, yCheck] == true)
+                    {
+                        count++;
+                    }
 
                 }
 
