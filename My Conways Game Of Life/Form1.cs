@@ -21,7 +21,7 @@ namespace My_Conways_Game_Of_Life
 
         // Drawing colors
         Color gridColor = Color.Black;
-        Color cellColor = Color.Gray;
+        Color cellColor = Color.Blue;
 
         // The Timer class
         Timer timer = new Timer();
@@ -43,12 +43,8 @@ namespace My_Conways_Game_Of_Life
         private void NextGeneration()
         {
             
-
-            bool[,] temp = universe;
-            universe = scratchPad;
-            scratchPad = temp;
-            
-            
+            scratchPad=universe;
+                       
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -56,15 +52,12 @@ namespace My_Conways_Game_Of_Life
                 {
                     //int count = CountNeighbor
                     int count = CountNeighborsFinite(x, y);
-                    //if (scratchPad[x,y]=(count<2||count>3))
-                    //{
-                    //    alive;
-                    //}
+                    alive = false;
                     //Apply rules:
                     /* Any living cell in the current universe with less than 2 living neighbors dies in the next generation as if by under-population.
                      * If a cell meets this criteria in the universe array then make the same cell dead in the scratch pad array.
                      */
-                    if (count < 2 )
+                    if ((count < 2 ) && universe[x, y] == true)
                     {
                         //NextGeneration();\
                         //needs to turn cell off 
@@ -76,7 +69,7 @@ namespace My_Conways_Game_Of_Life
                     /* Any living cell with more than 3 living neighbors will die in the next generation as if by over-population.
                     * If so in the universe then kill it in the scratch pad.
                     */
-                    if (count > 3)
+                    if ((count > 3) && universe[x, y] == true)
                     {
                         //NextGeneration();
                         alive = false;
@@ -86,7 +79,7 @@ namespace My_Conways_Game_Of_Life
                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
                     * If this is the case in the universe then the same cell lives in the scratch pad.
                     */
-                    if (count ==2 || count == 3)
+                    if ((count ==2 || count == 3)&&universe[x,y]==true)
                     {
                         //NextGeneration();
                         alive = true;
@@ -95,7 +88,7 @@ namespace My_Conways_Game_Of_Life
 
                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
                     * If so in the universe then make that cell alive in the scratch pad.*/
-                    if (count ==3)
+                    if ((count ==3) && universe[x, y] == false)
                     {
                         alive = true;
                         graphicsPanel1.Invalidate();
