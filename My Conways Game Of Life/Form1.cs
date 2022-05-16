@@ -18,7 +18,7 @@ namespace My_Conways_Game_Of_Life
         bool[,] universe = new bool[10, 10];
         bool[,] scratchPad = new bool[10, 10];
         bool alive = true;
-       
+
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -43,7 +43,7 @@ namespace My_Conways_Game_Of_Life
         // Calculate the next generation of cells
         private void NextGeneration()
         {
-           
+
 
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -51,7 +51,7 @@ namespace My_Conways_Game_Of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     //int count = CountNeighbor
-                    int count = CountNeighborsFinite(x, y);
+                    int count = CountNeighborsToroidal(x, y);
                     alive = false;
 
 
@@ -59,11 +59,11 @@ namespace My_Conways_Game_Of_Life
                     /* Any living cell in the current universe with less than 2 living neighbors dies in the next generation as if by under-population.
                      * If a cell meets this criteria in the universe array then make the same cell dead in the scratch pad array.
                      */
-                    if ((count < 2 ) && universe[x, y] == true)
+                    if ((count < 2) && universe[x, y] == true)
                     {
                         //needs to turn cell off 
-                        alive=false;
-                        
+                        alive = false;
+
                         graphicsPanel1.Invalidate();
                     }
 
@@ -73,13 +73,13 @@ namespace My_Conways_Game_Of_Life
                     if ((count > 3) && universe[x, y] == true)
                     {
                         alive = false;
-                        
+
                         graphicsPanel1.Invalidate();
                     }
                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
                     * If this is the case in the universe then the same cell lives in the scratch pad.
                     */
-                    if ((count ==2 || count == 3)&&universe[x,y]==true)
+                    if ((count == 2 || count == 3) && universe[x, y] == true)
                     {
                         alive = true;
                         graphicsPanel1.Invalidate();
@@ -87,7 +87,7 @@ namespace My_Conways_Game_Of_Life
 
                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
                     * If so in the universe then make that cell alive in the scratch pad.*/
-                    if ((count ==3) && universe[x, y] == false)
+                    if ((count == 3) && universe[x, y] == false)
                     {
                         alive = true;
                         graphicsPanel1.Invalidate();
@@ -174,9 +174,9 @@ namespace My_Conways_Game_Of_Life
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-                    if (current == true||current==false)
+                    if (current == true || current == false)
                     {
-                        if ((cNum < 2 || cNum > 3)&&cNum !=0)
+                        if ((cNum < 2 || cNum > 3) && cNum != 0)
                         {
                             e.Graphics.DrawString(cNum.ToString(), font, Brushes.Red, cellNum, stringFormat);
                         }
@@ -245,7 +245,7 @@ namespace My_Conways_Game_Of_Life
                     {
                         continue;
                     }
-                    
+
                     // if xCheck is less than 0 then continue
                     if (xCheck < 0)
                     {
@@ -279,7 +279,7 @@ namespace My_Conways_Game_Of_Life
             return count;
 
         }
-        int CountNeighborsToroidal(int x, int y)
+        private int CountNeighborsToroidal(int x, int y)
 
         {
 
@@ -305,42 +305,38 @@ namespace My_Conways_Game_Of_Life
                     if (xOffset == 0 && yOffset == 0)
                     {
                         continue;
-                        // if xCheck is less than 0 then set to xLen - 1
-                        if (xCheck < 0)
-                        {
-                            xLen = -1;
-                        }
-                        // if yCheck is less than 0 then set to yLen - 1
-                        if (yCheck < 0)
-                        {
-                            yLen = -1;
-                        }
-                        // if xCheck is greater than or equal too xLen then set to 0
-                        if (xCheck >= xLen)
-                        {
-                            xLen = 0;
-                        }
-                        // if yCheck is greater than or equal too yLen then set to 0
-                        if (yCheck >= yLen)
-                        {
-                            yLen = 0;
-                        }
                     }
-                    
+                    // if xCheck is less than 0 then set to xLen - 1
+                    if (xCheck < 0)
+                    {
+                        xCheck= xLen - 1;
 
-
+                    }
+                    // if yCheck is less than 0 then set to yLen - 1
+                    if (yCheck < 0)
+                    {
+                        yCheck= yLen -1;
+                    }
+                    // if xCheck is greater than or equal too xLen then set to 0
+                    if (xCheck >= xLen)
+                    {
+                        xCheck = 0;
+                    }
+                    // if yCheck is greater than or equal too yLen then set to 0
+                    if (yCheck >= yLen)
+                    {
+                        yCheck = 0;
+                    }
                     if (universe[xCheck, yCheck] == true)
                     {
                         count++;
                     }
-                }
 
+                }
             }
 
             return count;
-
         }
-
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
