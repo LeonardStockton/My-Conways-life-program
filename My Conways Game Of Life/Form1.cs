@@ -36,7 +36,7 @@ namespace My_Conways_Game_Of_Life
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
-            timer.Enabled = true; // start timer running
+            timer.Enabled = false; // start timer running
         }
 
 
@@ -345,6 +345,7 @@ namespace My_Conways_Game_Of_Life
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            timer.Enabled = false;
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -493,5 +494,7 @@ namespace My_Conways_Game_Of_Life
         {
             NextGeneration();
         }
+
+        
     }
 }
