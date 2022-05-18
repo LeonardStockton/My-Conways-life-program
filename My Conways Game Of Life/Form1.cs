@@ -15,8 +15,8 @@ namespace My_Conways_Game_Of_Life
     {
 
         // The universe array
-        bool[,] universe = new bool[10, 10];
-        bool[,] scratchPad = new bool[10, 10];
+        bool[,] universe = new bool[100, 100];
+        bool[,] scratchPad = new bool[100, 100];
         bool alive = true;
 
 
@@ -34,7 +34,7 @@ namespace My_Conways_Game_Of_Life
         {
             InitializeComponent();
             // Setup the timer
-            timer.Interval = 1000; // milliseconds
+            timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = true; // start timer running
         }
