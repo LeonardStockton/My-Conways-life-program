@@ -16,5 +16,10 @@ namespace My_Conways_Game_Of_Life
         {
             InitializeComponent();
         }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
     }
 }
