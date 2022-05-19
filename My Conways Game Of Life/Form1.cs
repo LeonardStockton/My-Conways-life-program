@@ -23,7 +23,7 @@ namespace My_Conways_Game_Of_Life
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.White;
-        Color Background= Color.Blue;
+        Color backGround= Color.Blue;
         // The Timer class
         Timer timer = new Timer();
 
@@ -132,6 +132,7 @@ namespace My_Conways_Game_Of_Life
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
+            Brush backgroundBrush = new SolidBrush(backGround);
             /* Brushes are used to fill the interors of things.The Brush class is
              * a ABC so you can not instancate it. There is no constructor so you have to 
              * construct one of the classes that is dirived from it. There are three 
@@ -148,6 +149,8 @@ namespace My_Conways_Game_Of_Life
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    // this brush fills the panel Background
+                    
                     // A rectangle to represent each cell in pixels
                     Rectangle cellRect = Rectangle.Empty;
                     cellRect.X = x * cellWidth;
@@ -160,7 +163,10 @@ namespace My_Conways_Game_Of_Life
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
-
+                    else if (universe[x, y] == false)
+                    {
+                        e.Graphics.FillRectangle(backgroundBrush, cellRect);
+                    }
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     //write the number of living or dead cells
@@ -386,7 +392,7 @@ namespace My_Conways_Game_Of_Life
                         // to the row string.
                         if (universe[x, y] == true)
                         {
-
+                            
                         }
                         // Else if the universe[x,y] is dead then append '.' (period)
                         // to the row string.
@@ -396,8 +402,7 @@ namespace My_Conways_Game_Of_Life
                         }
                     }
 
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
+                    // Once the current row has been read through and the  string constructed then write it to the file using WriteLine.
                 }
 
                 // After all rows and columns have been written then close the file.
@@ -501,10 +506,10 @@ namespace My_Conways_Game_Of_Life
         private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
-            dlg.Color = cellColor;
+            dlg.Color = backGround;
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                cellColor = dlg.Color;
+                backGround = dlg.Color;
                 graphicsPanel1.Invalidate();
             }
         }
@@ -520,6 +525,14 @@ namespace My_Conways_Game_Of_Life
             }
         }
 
-        
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
