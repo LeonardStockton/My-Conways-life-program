@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace My_Conways_Game_Of_Life
 {
-    public partial class OptionsForm : Form
+    public partial class OptionsDialog : Form
     {
-        public OptionsForm()
+        public OptionsDialog()
         {
             InitializeComponent();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
     }
 }

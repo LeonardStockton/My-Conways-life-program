@@ -22,8 +22,8 @@ namespace My_Conways_Game_Of_Life
 
         // Drawing colors
         Color gridColor = Color.Black;
-        Color cellColor = Color.White;
-        Color backGround= Color.Blue;
+        Color cellColor = Color.Brown;
+        Color backGround= Color.White;
         // The Timer class
         Timer timer = new Timer();
 
@@ -352,6 +352,7 @@ namespace My_Conways_Game_Of_Life
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
+            generations = 0;
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -359,6 +360,7 @@ namespace My_Conways_Game_Of_Life
                 {
                     universe[x, y] = false;
                 }
+                toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             }
             graphicsPanel1.Invalidate();
         }
@@ -366,7 +368,8 @@ namespace My_Conways_Game_Of_Life
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+            dlg.FilterIndex = 2;
+            dlg.DefaultExt = "cells";
 
 
             if (DialogResult.OK == dlg.ShowDialog())
@@ -534,5 +537,14 @@ namespace My_Conways_Game_Of_Life
         {
 
         }
+
+        private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OptionsDialog dlg = new OptionsDialog();
+            
+            dlg.ShowDialog();
+        }
+
+       
     }
 }
