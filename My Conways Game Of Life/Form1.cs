@@ -117,13 +117,7 @@ namespace My_Conways_Game_Of_Life
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)//DO NOT INVALIDATE THE PAINT\\
         {
             //floats will make this look better 
-            ColorDialog dlg = new ColorDialog();
-            dlg.Color = Background;
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                Background = dlg.Color;
-                graphicsPanel1.Invalidate();
-            }
+
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
             int cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
