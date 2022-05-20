@@ -23,7 +23,7 @@ namespace My_Conways_Game_Of_Life
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Brown;
-        Color backGround= Color.White;
+        Color backGround = Color.White;
         // The Timer class
         Timer timer = new Timer();
 
@@ -150,7 +150,7 @@ namespace My_Conways_Game_Of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // this brush fills the panel Background
-                    
+
                     // A rectangle to represent each cell in pixels
                     Rectangle cellRect = Rectangle.Empty;
                     cellRect.X = x * cellWidth;
@@ -380,7 +380,7 @@ namespace My_Conways_Game_Of_Life
                 // Prefix all comment strings with an exclamation point.
                 // Use WriteLine to write the strings to the file. 
                 // It appends a CRLF for you.
-                writer.WriteLine("!This is my comment.");
+                writer.WriteLine("!" + (TimeZoneInfo.Local)+";");
 
                 // Iterate through the universe one row at a time.
                 for (int y = 0; y < universe.GetLength(1); y++)
@@ -395,17 +395,20 @@ namespace My_Conways_Game_Of_Life
                         // to the row string.
                         if (universe[x, y] == true)
                         {
-                            
+
+                            currentRow += 'O';
                         }
                         // Else if the universe[x,y] is dead then append '.' (period)
                         // to the row string.
                         else if (universe[x, y] == false)
                         {
-
+                             
+                            currentRow += '.';
                         }
                     }
 
                     // Once the current row has been read through and the  string constructed then write it to the file using WriteLine.
+                    writer.WriteLine(currentRow);
                 }
 
                 // After all rows and columns have been written then close the file.
@@ -435,7 +438,7 @@ namespace My_Conways_Game_Of_Life
 
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
-                    //if (char['!'])
+                    //if ()
                     //{
                     //}
                     // If the row is not a comment then it is a row of cells.
@@ -520,7 +523,10 @@ namespace My_Conways_Game_Of_Life
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.FullOpen = true;
+            dlg.CustomColors = new int[]{6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944,};
             dlg.Color = cellColor;
+
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 cellColor = dlg.Color;
@@ -541,10 +547,21 @@ namespace My_Conways_Game_Of_Life
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OptionsDialog dlg = new OptionsDialog();
-            
-            dlg.ShowDialog();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                string dummy = "fix me";
+            }
         }
 
-       
+        private void saveToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            SaveDialog dlg = new SaveDialog();
+            dlg.ShowDialog();
+            if(DialogResult.OK == dlg.ShowDialog())
+            {
+
+            }
+        }
     }
 }
