@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace My_Conways_Game_Of_Life
 {
-    public partial class SaveDialog : Form
+    public partial class SaveFileDialog : Form
     {
-        public SaveDialog()
+        public SaveFileDialog()
         {
             InitializeComponent();
         }
