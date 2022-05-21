@@ -107,7 +107,33 @@ namespace My_Conways_Game_Of_Life
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
         }
+        //randomizer
+        private void Randomise()
+        {
+            Random rand = new Random();
+            Random sRand = new Random();
 
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    //call next 
+
+                    //If random number is =0 turn cell on else if =1 turn cell off
+                }
+            }
+            // graphicsPanel1.Invalidate();
+        }
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -343,7 +369,10 @@ namespace My_Conways_Game_Of_Life
 
             return count;
         }
+        private void CountNeighbors()
+        {
 
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //need to destroy the main window
@@ -366,21 +395,23 @@ namespace My_Conways_Game_Of_Life
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|Cells|*.cells";
             dlg.FilterIndex = 2;
             dlg.DefaultExt = "cells";
-
+            dlg.RestoreDirectory = true;
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
+
                 StreamWriter writer = new StreamWriter(dlg.FileName);
 
                 // Write any comments you want to include first.
                 // Prefix all comment strings with an exclamation point.
                 // Use WriteLine to write the strings to the file. 
                 // It appends a CRLF for you.
-                writer.WriteLine("!" + (TimeZoneInfo.Local)+";");
+                writer.WriteLine("!" + (TimeZoneInfo.Local) + ";");
 
                 // Iterate through the universe one row at a time.
                 for (int y = 0; y < universe.GetLength(1); y++)
@@ -395,14 +426,13 @@ namespace My_Conways_Game_Of_Life
                         // to the row string.
                         if (universe[x, y] == true)
                         {
-
                             currentRow += 'O';
                         }
                         // Else if the universe[x,y] is dead then append '.' (period)
                         // to the row string.
                         else if (universe[x, y] == false)
                         {
-                             
+
                             currentRow += '.';
                         }
                     }
@@ -438,8 +468,9 @@ namespace My_Conways_Game_Of_Life
 
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
-                    //if ()
+                    //if (reader.ReadLine() = '!')
                     //{
+                    //    continue;
                     //}
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
@@ -512,6 +543,8 @@ namespace My_Conways_Game_Of_Life
         private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.FullOpen = true;
+            dlg.CustomColors = new int[] { 6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944, };
             dlg.Color = backGround;
             if (DialogResult.OK == dlg.ShowDialog())
             {
@@ -524,7 +557,7 @@ namespace My_Conways_Game_Of_Life
         {
             ColorDialog dlg = new ColorDialog();
             dlg.FullOpen = true;
-            dlg.CustomColors = new int[]{6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944,};
+            dlg.CustomColors = new int[] { 6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944, };
             dlg.Color = cellColor;
 
             if (DialogResult.OK == dlg.ShowDialog())
@@ -534,34 +567,18 @@ namespace My_Conways_Game_Of_Life
             }
         }
 
-        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            OptionsDialog dlg = new OptionsDialog();
+            //OptionsDialog dlg = new OptionsDialog();
 
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                string dummy = "fix me";
-            }
+            //if (DialogResult.OK == dlg.ShowDialog())
+            //{
+            //    string dummy = "fix me";
+            //}
         }
 
-        private void saveToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            SaveDialog dlg = new SaveDialog();
-            dlg.ShowDialog();
-            if(DialogResult.OK == dlg.ShowDialog())
-            {
 
-            }
-        }
     }
 }
