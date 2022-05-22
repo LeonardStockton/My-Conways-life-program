@@ -16,5 +16,7 @@ namespace My_Conways_Game_Of_Life
         {
             InitializeComponent();
         }
+
+       
     }
 }
