@@ -28,45 +28,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Ok_button = new System.Windows.Forms.Button();
+            this.Cancel_button = new System.Windows.Forms.Button();
+            this.TimerUpDownBox = new System.Windows.Forms.NumericUpDown();
+            this.UniversWidthUpDown = new System.Windows.Forms.NumericUpDown();
+            this.UniversHeightUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerUpDownBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniversWidthUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniversHeightUpDown)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // Ok_button
             // 
-            this.button1.Location = new System.Drawing.Point(632, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Ok_button.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Ok_button.Location = new System.Drawing.Point(59, 149);
+            this.Ok_button.Name = "Ok_button";
+            this.Ok_button.Size = new System.Drawing.Size(75, 23);
+            this.Ok_button.TabIndex = 0;
+            this.Ok_button.Text = "OK";
+            this.Ok_button.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // Cancel_button
             // 
-            this.button2.Location = new System.Drawing.Point(713, 398);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Cancel_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel_button.Location = new System.Drawing.Point(140, 149);
+            this.Cancel_button.Name = "Cancel_button";
+            this.Cancel_button.Size = new System.Drawing.Size(75, 23);
+            this.Cancel_button.TabIndex = 1;
+            this.Cancel_button.Text = "Cancel";
+            this.Cancel_button.UseVisualStyleBackColor = true;
+            // 
+            // TimerUpDownBox
+            // 
+            this.TimerUpDownBox.Location = new System.Drawing.Point(180, 46);
+            this.TimerUpDownBox.Name = "TimerUpDownBox";
+            this.TimerUpDownBox.Size = new System.Drawing.Size(75, 20);
+            this.TimerUpDownBox.TabIndex = 2;
+            // 
+            // UniversWidthUpDown
+            // 
+            this.UniversWidthUpDown.Location = new System.Drawing.Point(180, 72);
+            this.UniversWidthUpDown.Name = "UniversWidthUpDown";
+            this.UniversWidthUpDown.Size = new System.Drawing.Size(75, 20);
+            this.UniversWidthUpDown.TabIndex = 3;
+            // 
+            // UniversHeightUpDown
+            // 
+            this.UniversHeightUpDown.Location = new System.Drawing.Point(180, 98);
+            this.UniversHeightUpDown.Name = "UniversHeightUpDown";
+            this.UniversHeightUpDown.Size = new System.Drawing.Size(75, 20);
+            this.UniversHeightUpDown.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Timer Interval in Milliseconds";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Width of Universe in Cells";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Height of Universe in Cells";
             // 
             // Options
             // 
+            this.AcceptButton = this.Ok_button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.CancelButton = this.Cancel_button;
+            this.ClientSize = new System.Drawing.Size(278, 190);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.UniversHeightUpDown);
+            this.Controls.Add(this.UniversWidthUpDown);
+            this.Controls.Add(this.TimerUpDownBox);
+            this.Controls.Add(this.Cancel_button);
+            this.Controls.Add(this.Ok_button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Options";
             this.Text = "Options";
+            ((System.ComponentModel.ISupportInitialize)(this.TimerUpDownBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniversWidthUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniversHeightUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Ok_button;
+        private System.Windows.Forms.Button Cancel_button;
+        private System.Windows.Forms.NumericUpDown TimerUpDownBox;
+        private System.Windows.Forms.NumericUpDown UniversWidthUpDown;
+        private System.Windows.Forms.NumericUpDown UniversHeightUpDown;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

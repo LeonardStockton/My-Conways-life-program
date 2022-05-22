@@ -571,12 +571,12 @@ namespace My_Conways_Game_Of_Life
 
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //OptionsDialog dlg = new OptionsDialog();
+            Options dlg = new Options();
 
-            //if (DialogResult.OK == dlg.ShowDialog())
-            //{
-            //    string dummy = "fix me";
-            //}
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                string dummy = "fix me";
+            }
         }
 
 
