@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace My_Conways_Game_Of_Life
@@ -119,8 +113,16 @@ namespace My_Conways_Game_Of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     //call next 
-
+                    rand.Next(0, 1);
                     //If random number is =0 turn cell on else if =1 turn cell off
+                    if (rand.Next(0) == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else if(rand.Next(1) == 1)
+                    {
+                        universe[x, y] = false;
+                    }
                 }
             }
             // graphicsPanel1.Invalidate();
@@ -132,7 +134,7 @@ namespace My_Conways_Game_Of_Life
 
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Randomise();
         }
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
@@ -391,7 +393,7 @@ namespace My_Conways_Game_Of_Life
                 }
                 toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             }
-            graphicsPanel1.Invalidate();
+            //graphicsPanel1.Invalidate();
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -455,6 +457,7 @@ namespace My_Conways_Game_Of_Life
             {
                 StreamReader reader = new StreamReader(dlg.FileName);
 
+
                 // Create a couple variables to calculate the width and height
                 // of the data in the file.
                 int maxWidth = 0;
@@ -468,19 +471,25 @@ namespace My_Conways_Game_Of_Life
 
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
-                    //if (reader.ReadLine() = '!')
-                    //{
-                    //    continue;
-                    //}
+                    if (row.StartsWith("!"))
+                    {
+                        continue;
+                    }
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
-
+                    else if (row.StartsWith(".")||row.StartsWith("O"))
+                    {
+                        maxHeight++;
+                    }
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
+                    maxWidth++;
                 }
 
                 // Resize the current universe and scratchPad
                 // to the width and height of the file calculated above.
+                universe = new bool[maxHeight, maxWidth];
+                scratchPad = new bool[maxHeight, maxWidth];
 
                 // Reset the file pointer back to the beginning of the file.
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -493,19 +502,39 @@ namespace My_Conways_Game_Of_Life
 
                     // If the row begins with '!' then
                     // it is a comment and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
 
+                        continue;
+                    }
                     // If the row is not a comment then 
                     // it is a row of cells and needs to be iterated through.
-                    for (int xPos = 0; xPos < row.Length; xPos++)
+                    else if (row.StartsWith(".") || row.StartsWith("O"))
                     {
-                        // If row[xPos] is a 'O' (capital O) then
-                        // set the corresponding cell in the universe to alive.
+                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        {
+                            int yPos = 0;
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                            {
+                                universe[xPos, yPos] = true;
+                            }
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                            else if (row[xPos] == '.')
+                            {
+                                universe[xPos, yPos] = false;
+                            }
+                            if (yPos < maxWidth)
+                            {
+                                yPos++;
+                            }
+                        }
 
-                        // If row[xPos] is a '.' (period) then
-                        // set the corresponding cell in the universe to dead.
                     }
                 }
-
+                graphicsPanel1.Invalidate();
                 // Close the file.
                 reader.Close();
             }
@@ -567,7 +596,7 @@ namespace My_Conways_Game_Of_Life
             }
         }
 
-       
+
 
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
