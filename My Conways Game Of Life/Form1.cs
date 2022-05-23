@@ -119,7 +119,7 @@ namespace My_Conways_Game_Of_Life
                     {
                         universe[x, y] = true;
                     }
-                    else if(rand.Next(1) == 1)
+                    else if (rand.Next(1) == 1)
                     {
                         universe[x, y] = false;
                     }
@@ -219,14 +219,17 @@ namespace My_Conways_Game_Of_Life
                             e.Graphics.DrawString(cNum.ToString(), font, Brushes.Green, cellNum, stringFormat);
                         }
                     }
-
-
+                    //cell numbering cleaned up
+                    stringFormat.Dispose();
+                    font.Dispose();
                 }
             }
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
+            backgroundBrush.Dispose();
+
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -477,13 +480,13 @@ namespace My_Conways_Game_Of_Life
                     }
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
-                    else if (row.StartsWith(".")||row.StartsWith("O"))
+                    else
                     {
-                        maxHeight++;
+                        maxWidth = row.Length;
                     }
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
-                    maxWidth++;
+                    maxHeight++;
                 }
 
                 // Resize the current universe and scratchPad
@@ -497,6 +500,7 @@ namespace My_Conways_Game_Of_Life
                 // Iterate through the file again, this time reading in the cells.
                 while (!reader.EndOfStream)
                 {
+                    int yPos = 0;
                     // Read one row at a time.
                     string row = reader.ReadLine();
 
@@ -504,16 +508,15 @@ namespace My_Conways_Game_Of_Life
                     // it is a comment and should be ignored.
                     if (row.StartsWith("!"))
                     {
-
                         continue;
                     }
                     // If the row is not a comment then 
                     // it is a row of cells and needs to be iterated through.
-                    else if (row.StartsWith(".") || row.StartsWith("O"))
+                    else
                     {
                         for (int xPos = 0; xPos < row.Length; xPos++)
                         {
-                            int yPos = 0;
+
                             // If row[xPos] is a 'O' (capital O) then
                             // set the corresponding cell in the universe to alive.
                             if (row[xPos] == 'O')
@@ -526,18 +529,15 @@ namespace My_Conways_Game_Of_Life
                             {
                                 universe[xPos, yPos] = false;
                             }
-                            if (yPos < maxWidth)
-                            {
-                                yPos++;
-                            }
                         }
-
+                        yPos = yPos++;
                     }
                 }
                 graphicsPanel1.Invalidate();
                 // Close the file.
                 reader.Close();
             }
+
         }
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
