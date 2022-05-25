@@ -16,5 +16,10 @@ namespace My_Conways_Game_Of_Life
         {
             InitializeComponent();
         }
+
+        private void SeedNumericUpDownTracker_ValueChanged(object sender, EventArgs e)
+        {
+            FormHelper.seedValue=(uint)this.SeedNumericUpDownTracker.Value;
+        }
     }
 }

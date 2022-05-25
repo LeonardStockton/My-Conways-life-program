@@ -32,7 +32,6 @@
             this.Cancelbutton = new System.Windows.Forms.Button();
             this.SeedNumericUpDownTracker = new System.Windows.Forms.NumericUpDown();
             this.seedLabel = new System.Windows.Forms.Label();
-            this.RandomizeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SeedNumericUpDownTracker)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,28 +57,20 @@
             // 
             // SeedNumericUpDownTracker
             // 
-            this.SeedNumericUpDownTracker.Location = new System.Drawing.Point(78, 55);
+            this.SeedNumericUpDownTracker.Location = new System.Drawing.Point(159, 55);
             this.SeedNumericUpDownTracker.Name = "SeedNumericUpDownTracker";
             this.SeedNumericUpDownTracker.Size = new System.Drawing.Size(120, 20);
             this.SeedNumericUpDownTracker.TabIndex = 2;
+            this.SeedNumericUpDownTracker.ValueChanged += new System.EventHandler(this.SeedNumericUpDownTracker_ValueChanged);
             // 
             // seedLabel
             // 
             this.seedLabel.AutoSize = true;
-            this.seedLabel.Location = new System.Drawing.Point(37, 57);
+            this.seedLabel.Location = new System.Drawing.Point(106, 57);
             this.seedLabel.Name = "seedLabel";
-            this.seedLabel.Size = new System.Drawing.Size(32, 13);
+            this.seedLabel.Size = new System.Drawing.Size(38, 13);
             this.seedLabel.TabIndex = 3;
-            this.seedLabel.Text = "Seed";
-            // 
-            // RandomizeButton
-            // 
-            this.RandomizeButton.Location = new System.Drawing.Point(205, 51);
-            this.RandomizeButton.Name = "RandomizeButton";
-            this.RandomizeButton.Size = new System.Drawing.Size(75, 23);
-            this.RandomizeButton.TabIndex = 4;
-            this.RandomizeButton.Text = "Random";
-            this.RandomizeButton.UseVisualStyleBackColor = true;
+            this.seedLabel.Text = "Seed :";
             // 
             // Seed
             // 
@@ -88,7 +79,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancelbutton;
             this.ClientSize = new System.Drawing.Size(342, 143);
-            this.Controls.Add(this.RandomizeButton);
             this.Controls.Add(this.seedLabel);
             this.Controls.Add(this.SeedNumericUpDownTracker);
             this.Controls.Add(this.Cancelbutton);
@@ -107,6 +97,5 @@
         private System.Windows.Forms.Button Cancelbutton;
         private System.Windows.Forms.NumericUpDown SeedNumericUpDownTracker;
         private System.Windows.Forms.Label seedLabel;
-        private System.Windows.Forms.Button RandomizeButton;
     }
 }

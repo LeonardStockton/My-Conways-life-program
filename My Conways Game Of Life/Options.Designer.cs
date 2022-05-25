@@ -80,6 +80,7 @@
             this.UniverseWidthChangeUpDown.Name = "UniverseWidthChangeUpDown";
             this.UniverseWidthChangeUpDown.Size = new System.Drawing.Size(75, 20);
             this.UniverseWidthChangeUpDown.TabIndex = 3;
+            this.UniverseWidthChangeUpDown.ValueChanged += new System.EventHandler(this.UniverseWidthChangeUpDown_ValueChanged);
             // 
             // UniverseHeightChangeUpDown
             // 
@@ -87,6 +88,7 @@
             this.UniverseHeightChangeUpDown.Name = "UniverseHeightChangeUpDown";
             this.UniverseHeightChangeUpDown.Size = new System.Drawing.Size(75, 20);
             this.UniverseHeightChangeUpDown.TabIndex = 4;
+            this.UniverseHeightChangeUpDown.ValueChanged += new System.EventHandler(this.UniverseHeightChangeUpDown_ValueChanged);
             // 
             // label1
             // 
@@ -133,6 +135,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Options";
             this.Text = "Options";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Options_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.TimerChangeUpDownBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UniverseWidthChangeUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UniverseHeightChangeUpDown)).EndInit();

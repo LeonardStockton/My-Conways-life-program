@@ -7,12 +7,11 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Form1 : Form
     {
-        //Cell demisions in hight and width
-        uint cellHight;
-        uint cellwidth;
+        //Cell demisions in X = hight and Y = width
+               
         // The universe array
-        bool[,] universe = new bool[30, 30];
-        bool[,] scratchPad = new bool[30, 30];
+        bool[,] universe = new bool[30,30];
+        bool[,] scratchPad = new bool[30,30];
         int livingCells = 0;
         int seed = 0;
 
@@ -34,6 +33,7 @@ namespace My_Conways_Game_Of_Life
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
             TimerIntervalCounter.Text = " Interval: " + timer.Interval.ToString();
+            
         }
 
 
@@ -41,7 +41,7 @@ namespace My_Conways_Game_Of_Life
         private void NextGeneration()
         {
             livingCells = 0;
-
+          
             for (int y = 0; y < universe.GetLength(1); y++)
             {
 
@@ -165,12 +165,19 @@ namespace My_Conways_Game_Of_Life
                     }
                 }
             }
-            SeedCounter.Text = " Seed: " + seed.ToString();
+            
             graphicsPanel1.Invalidate();
         }
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RandomizeFromSeed();
+            Seed dlg = new Seed();
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                RandomizeFromSeed();
+                seed = (int)FormHelper.seedValue;
+                SeedCounter.Text = " Seed: " + seed.ToString();
+            }
         }
 
 
@@ -409,12 +416,7 @@ namespace My_Conways_Game_Of_Life
 
             return count;
         }
-        private void CountNeighbors()
-        {
-
-
-
-        }
+       
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //need to destroy the main window
@@ -573,17 +575,17 @@ namespace My_Conways_Game_Of_Life
                 graphicsPanel1.Invalidate();
             }
         }
-        private void ToolStripButton1_Click(object sender, EventArgs e)
+        private void playToolStripButton1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void puaseToolStripButton2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void toolStripButton3_Click(object sender, EventArgs e)
+        private void nextToolStripButton3_Click(object sender, EventArgs e)
         {
 
         }
@@ -607,7 +609,7 @@ namespace My_Conways_Game_Of_Life
         {
             ColorDialog dlg = new ColorDialog();
             dlg.FullOpen = true;
-            dlg.CustomColors = new int[] { 6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944, };
+            dlg.CustomColors = new int[] { };
             dlg.Color = backGround;
             if (DialogResult.OK == dlg.ShowDialog())
             {
@@ -629,7 +631,19 @@ namespace My_Conways_Game_Of_Life
                 graphicsPanel1.Invalidate();
             }
         }
+        private void gridColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+            dlg.FullOpen = true;
+            dlg.CustomColors = new int[] { 6916092, 15195440, 16107657, 1836924, 3758726, 12566463, 7526079, 7405793, 6945974, 241502, 2296476, 5130294, 3102017, 7324121, 14993507, 11730944, };
+            dlg.Color = gridColor;
 
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+                graphicsPanel1.Invalidate();
+            }
+        }
 
 
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -638,10 +652,13 @@ namespace My_Conways_Game_Of_Life
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                timer.Interval =(int)TimerIntervalCounter.ImageIndex;
-
-
+                timer.Interval =(int)FormHelper.timerClick;
+                uint x = FormHelper.cellHight;
+                uint y = FormHelper.cellWidth;
+                universe = new bool[x,y];
+                scratchPad= new bool[x,y];
             }
+            graphicsPanel1.Invalidate();
         }
 
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -662,6 +679,16 @@ namespace My_Conways_Game_Of_Life
         }
 
         private void SeedCounter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
 
         }
