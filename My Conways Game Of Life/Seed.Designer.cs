@@ -30,10 +30,10 @@
         {
             this.OKbutton = new System.Windows.Forms.Button();
             this.Cancelbutton = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.SeedNumericUpDownTracker = new System.Windows.Forms.NumericUpDown();
             this.seedLabel = new System.Windows.Forms.Label();
             this.RandomizeButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SeedNumericUpDownTracker)).BeginInit();
             this.SuspendLayout();
             // 
             // OKbutton
@@ -56,12 +56,12 @@
             this.Cancelbutton.Text = "Cancel";
             this.Cancelbutton.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // SeedNumericUpDownTracker
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(78, 55);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 2;
+            this.SeedNumericUpDownTracker.Location = new System.Drawing.Point(78, 55);
+            this.SeedNumericUpDownTracker.Name = "SeedNumericUpDownTracker";
+            this.SeedNumericUpDownTracker.Size = new System.Drawing.Size(120, 20);
+            this.SeedNumericUpDownTracker.TabIndex = 2;
             // 
             // seedLabel
             // 
@@ -90,12 +90,12 @@
             this.ClientSize = new System.Drawing.Size(342, 143);
             this.Controls.Add(this.RandomizeButton);
             this.Controls.Add(this.seedLabel);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.SeedNumericUpDownTracker);
             this.Controls.Add(this.Cancelbutton);
             this.Controls.Add(this.OKbutton);
             this.Name = "Seed";
             this.Text = "Seed";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SeedNumericUpDownTracker)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,7 +105,7 @@
 
         private System.Windows.Forms.Button OKbutton;
         private System.Windows.Forms.Button Cancelbutton;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown SeedNumericUpDownTracker;
         private System.Windows.Forms.Label seedLabel;
         private System.Windows.Forms.Button RandomizeButton;
     }

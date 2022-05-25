@@ -7,7 +7,9 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Form1 : Form
     {
-
+        //Cell demisions in hight and width
+        uint cellHight;
+        uint cellwidth;
         // The universe array
         bool[,] universe = new bool[30, 30];
         bool[,] scratchPad = new bool[30, 30];
@@ -31,6 +33,7 @@ namespace My_Conways_Game_Of_Life
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+            TimerIntervalCounter.Text = " Interval: " + timer.Interval.ToString();
         }
 
 
@@ -50,7 +53,7 @@ namespace My_Conways_Game_Of_Life
                     {
                         count = CountNeighborsToroidal(x, y);
                     }
-                    if (this.finiteToolStripMenuItem.Checked ==true)   
+                    if (this.finiteToolStripMenuItem.Checked == true)
 
                     {
                         count = CountNeighborsFinite(x, y);
@@ -105,7 +108,8 @@ namespace My_Conways_Game_Of_Life
 
             // Update status strip generations
             //toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString() + " Alive: " + livingCells.ToString();
-            toolStripStatusLabelGenerations.Text = "Generations: " + generations.ToString() + " Interval: " + timer.Interval.ToString() + " Alive: " + livingCells.ToString() + " Seed: " + seed.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations: " + generations.ToString();
+            CellsAliveCounter.Text = " Alive: " + livingCells.ToString();
             graphicsPanel1.Invalidate();
         }
         //randomizer
@@ -161,6 +165,7 @@ namespace My_Conways_Game_Of_Life
                     }
                 }
             }
+            SeedCounter.Text = " Seed: " + seed.ToString();
             graphicsPanel1.Invalidate();
         }
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -193,7 +198,7 @@ namespace My_Conways_Game_Of_Life
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
-            Brush backgroundBrush = new SolidBrush(backGround);
+           
             /* Brushes are used to fill the interors of things.The Brush class is
              * a ABC so you can not instancate it. There is no constructor so you have to 
              * construct one of the classes that is dirived from it. There are three 
@@ -211,7 +216,7 @@ namespace My_Conways_Game_Of_Life
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // this brush fills the panel Background
-
+                    Brush backgroundBrush = new SolidBrush(backGround);
                     // A rectangle to represent each cell in pixels
                     RectangleF cellRect = RectangleF.Empty;
                     cellRect.X = x * cellWidth;
@@ -224,7 +229,10 @@ namespace My_Conways_Game_Of_Life
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
-
+                    if (universe[x, y] == false)
+                    {
+                        e.Graphics.FillRectangle(backgroundBrush,cellRect);
+                    }
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     //write the number of living or dead cells
@@ -256,6 +264,7 @@ namespace My_Conways_Game_Of_Life
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
+            //backgroundBrush.Dispose();
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -400,7 +409,12 @@ namespace My_Conways_Game_Of_Life
 
             return count;
         }
-       
+        private void CountNeighbors()
+        {
+
+
+
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //need to destroy the main window
@@ -419,7 +433,7 @@ namespace My_Conways_Game_Of_Life
                 }
                 toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             }
-            //graphicsPanel1.Invalidate();
+            graphicsPanel1.Invalidate();
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -624,7 +638,9 @@ namespace My_Conways_Game_Of_Life
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                string dummy = "fix me";
+                timer.Interval =(int)TimerIntervalCounter.ImageIndex;
+
+
             }
         }
 
@@ -637,6 +653,15 @@ namespace My_Conways_Game_Of_Life
         }
 
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (this.finiteToolStripMenuItem.Checked == false)
+            {
+                this.toroidalToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void SeedCounter_Click(object sender, EventArgs e)
         {
 
         }

@@ -64,9 +64,15 @@
             // TimerChangeUpDownBox
             // 
             this.TimerChangeUpDownBox.Location = new System.Drawing.Point(180, 46);
+            this.TimerChangeUpDownBox.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.TimerChangeUpDownBox.Name = "TimerChangeUpDownBox";
             this.TimerChangeUpDownBox.Size = new System.Drawing.Size(75, 20);
             this.TimerChangeUpDownBox.TabIndex = 2;
+            this.TimerChangeUpDownBox.ValueChanged += new System.EventHandler(this.TimerChangeUpDownBox_ValueChanged);
             // 
             // UniverseWidthChangeUpDown
             // 

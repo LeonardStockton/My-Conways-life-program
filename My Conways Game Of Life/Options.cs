@@ -17,6 +17,9 @@ namespace My_Conways_Game_Of_Life
             InitializeComponent();
         }
 
-       
+        private void TimerChangeUpDownBox_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
