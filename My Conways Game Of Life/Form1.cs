@@ -45,8 +45,16 @@ namespace My_Conways_Game_Of_Life
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    //int count = CountNeighbor
-                    int count = CountNeighborsToroidal(x, y);
+                    int count = 0;
+                    if (this.toroidalToolStripMenuItem.Checked == true)
+                    {
+                        count = CountNeighborsToroidal(x, y);
+                    }
+                    if (this.finiteToolStripMenuItem.Checked ==true)   
+
+                    {
+                        count = CountNeighborsFinite(x, y);
+                    }
                     scratchPad[x, y] = false;
 
                     //Apply rules:
@@ -132,7 +140,7 @@ namespace My_Conways_Game_Of_Life
         }
         private void RandomizeFromSeed()
         {
-            seed=0;
+            seed = 0;
             Random sRand = new Random(seed);
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -160,7 +168,7 @@ namespace My_Conways_Game_Of_Life
             RandomizeFromSeed();
         }
 
-       
+
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -392,10 +400,7 @@ namespace My_Conways_Game_Of_Life
 
             return count;
         }
-        private void CountNeighbors()
-        {
-
-        }
+       
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //need to destroy the main window
@@ -623,6 +628,17 @@ namespace My_Conways_Game_Of_Life
             }
         }
 
+        private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.toroidalToolStripMenuItem.Checked == false)
+            {
+                this.finiteToolStripMenuItem.Checked = true;
+            }
+        }
 
+        private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
