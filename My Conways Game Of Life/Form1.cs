@@ -9,10 +9,10 @@ namespace My_Conways_Game_Of_Life
     {
 
         // The universe array
-        bool[,] universe = new bool[100, 100];
-        bool[,] scratchPad = new bool[100, 100];
-        bool alive = true;
-
+        bool[,] universe = new bool[30, 30];
+        bool[,] scratchPad = new bool[30, 30];
+        int livingCells = 0;
+        int seed = 0;
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -37,17 +37,17 @@ namespace My_Conways_Game_Of_Life
         // Calculate the next generation of cells
         private void NextGeneration()
         {
-
+            livingCells = 0;
 
             for (int y = 0; y < universe.GetLength(1); y++)
             {
+
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     //int count = CountNeighbor
                     int count = CountNeighborsToroidal(x, y);
-                    alive = false;
-
+                    scratchPad[x, y] = false;
 
                     //Apply rules:
                     /* Any living cell in the current universe with less than 2 living neighbors dies in the next generation as if by under-population.
@@ -56,9 +56,8 @@ namespace My_Conways_Game_Of_Life
                     if ((count < 2) && universe[x, y] == true)
                     {
                         //needs to turn cell off 
-                        alive = false;
+                        scratchPad[x, y] = false;
 
-                        graphicsPanel1.Invalidate();
                     }
 
                     /* Any living cell with more than 3 living neighbors will die in the next generation as if by over-population.
@@ -66,29 +65,27 @@ namespace My_Conways_Game_Of_Life
                     */
                     if ((count > 3) && universe[x, y] == true)
                     {
-                        alive = false;
+                        scratchPad[x, y] = false;
 
-                        graphicsPanel1.Invalidate();
                     }
                     /* Any living cell with 2 or 3 living neighbors will live on into the next generation.
                     * If this is the case in the universe then the same cell lives in the scratch pad.
                     */
                     if ((count == 2 || count == 3) && universe[x, y] == true)
                     {
-                        alive = true;
-                        graphicsPanel1.Invalidate();
+                        scratchPad[x, y] = true;
+                        livingCells++;
                     }
 
                     /* Any dead cell with exactly 3 living neighbors will be born into the next generation as if by reproduction.
                     * If so in the universe then make that cell alive in the scratch pad.*/
                     if ((count == 3) && universe[x, y] == false)
                     {
-                        alive = true;
-                        graphicsPanel1.Invalidate();
+                        scratchPad[x, y] = true;
+                        livingCells++;
                     }
 
                     //Turn in on/off with the ScratchPad
-                    scratchPad[x, y] = alive;
                 }
             }
             //Copy the ScratchPad to the universe
@@ -99,43 +96,71 @@ namespace My_Conways_Game_Of_Life
             generations++;
 
             // Update status strip generations
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            //toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString() + " Alive: " + livingCells.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations: " + generations.ToString() + " Interval: " + timer.Interval.ToString() + " Alive: " + livingCells.ToString() + " Seed: " + seed.ToString();
+            graphicsPanel1.Invalidate();
         }
         //randomizer
-        private void Randomise()
+        private void RandomiseFromTime()
         {
             Random rand = new Random();
-            Random sRand = new Random();
-
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+
                     //call next 
-                    rand.Next(0, 1);
+                    int num = rand.Next(0, 2);
                     //If random number is =0 turn cell on else if =1 turn cell off
-                    if (rand.Next(0) == 0)
+                    if (num == 0)
                     {
                         universe[x, y] = true;
                     }
-                    else if (rand.Next(1) == 1)
+                    else
                     {
                         universe[x, y] = false;
                     }
                 }
             }
-            // graphicsPanel1.Invalidate();
+            graphicsPanel1.Invalidate();
+
+        }
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RandomiseFromTime();
+        }
+        private void RandomizeFromSeed()
+        {
+            seed=0;
+            Random sRand = new Random(seed);
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+
+                    //call next 
+                    int num = sRand.Next(0, 2);
+                    //If random number is =0 turn cell on else if =1 turn cell off
+                    if (num == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else
+                    {
+                        universe[x, y] = false;
+                    }
+                }
+            }
+            graphicsPanel1.Invalidate();
         }
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            RandomizeFromSeed();
         }
 
-        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Randomise();
-        }
+       
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -148,9 +173,9 @@ namespace My_Conways_Game_Of_Life
 
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
-            int cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
+            float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-            int cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
+            float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(gridColor, 1);
@@ -180,7 +205,7 @@ namespace My_Conways_Game_Of_Life
                     // this brush fills the panel Background
 
                     // A rectangle to represent each cell in pixels
-                    Rectangle cellRect = Rectangle.Empty;
+                    RectangleF cellRect = RectangleF.Empty;
                     cellRect.X = x * cellWidth;
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
@@ -191,15 +216,11 @@ namespace My_Conways_Game_Of_Life
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
-                    else if (universe[x, y] == false)
-                    {
-                        e.Graphics.FillRectangle(backgroundBrush, cellRect);
-                    }
+
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     //write the number of living or dead cells
-                    bool current = universe[x, y];
-                    Rectangle cellNum = new Rectangle(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    RectangleF cellNum = new RectangleF(cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     int cNum = CountNeighborsFinite(x, y);
                     // Set up font & sizing
                     Font font = new Font("Arial", 13f);
@@ -208,7 +229,7 @@ namespace My_Conways_Game_Of_Life
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-                    if (current == true || current == false)
+                    if (cNum != 0)
                     {
                         if ((cNum < 2 || cNum > 3) && cNum != 0)
                         {
@@ -219,17 +240,14 @@ namespace My_Conways_Game_Of_Life
                             e.Graphics.DrawString(cNum.ToString(), font, Brushes.Green, cellNum, stringFormat);
                         }
                     }
-                    //cell numbering cleaned up
-                    stringFormat.Dispose();
-                    font.Dispose();
+
+
                 }
             }
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
-            backgroundBrush.Dispose();
-
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -474,19 +492,18 @@ namespace My_Conways_Game_Of_Life
 
                     // If the row begins with '!' then it is a comment
                     // and should be ignored.
-                    if (row.StartsWith("!"))
+                    if (row[0] == '!')
                     {
                         continue;
                     }
+                    maxHeight++;
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
-                    else
-                    {
-                        maxWidth = row.Length;
-                    }
+
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
-                    maxHeight++;
+                    int stringLenght = row.Length;
+                    maxWidth = stringLenght;
                 }
 
                 // Resize the current universe and scratchPad
@@ -498,46 +515,44 @@ namespace My_Conways_Game_Of_Life
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
 
                 // Iterate through the file again, this time reading in the cells.
+                int yPos = 0;
                 while (!reader.EndOfStream)
                 {
-                    int yPos = 0;
                     // Read one row at a time.
-                    string row = reader.ReadLine();
+                    string row2 = reader.ReadLine();
 
                     // If the row begins with '!' then
                     // it is a comment and should be ignored.
-                    if (row.StartsWith("!"))
+                    if (row2[0] == '!')
                     {
                         continue;
                     }
-                    // If the row is not a comment then 
-                    // it is a row of cells and needs to be iterated through.
-                    else
+                    maxHeight++;
+                    if (row2[0] != '!')
                     {
-                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        for (int xPos = 0; xPos < row2.Length; xPos++)
                         {
-
                             // If row[xPos] is a 'O' (capital O) then
                             // set the corresponding cell in the universe to alive.
-                            if (row[xPos] == 'O')
+                            if (row2[xPos] == 'O')
                             {
                                 universe[xPos, yPos] = true;
                             }
                             // If row[xPos] is a '.' (period) then
                             // set the corresponding cell in the universe to dead.
-                            else if (row[xPos] == '.')
+                            else if (row2[xPos] == '.')
                             {
                                 universe[xPos, yPos] = false;
                             }
+
                         }
-                        yPos = yPos++;
+                        yPos++;
                     }
                 }
-                graphicsPanel1.Invalidate();
                 // Close the file.
                 reader.Close();
+                graphicsPanel1.Invalidate();
             }
-
         }
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {

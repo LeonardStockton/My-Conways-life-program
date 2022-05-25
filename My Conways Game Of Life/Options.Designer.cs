@@ -30,15 +30,15 @@
         {
             this.Ok_button = new System.Windows.Forms.Button();
             this.Cancel_button = new System.Windows.Forms.Button();
-            this.TimerUpDownBox = new System.Windows.Forms.NumericUpDown();
-            this.UniversWidthUpDown = new System.Windows.Forms.NumericUpDown();
-            this.UniversHeightUpDown = new System.Windows.Forms.NumericUpDown();
+            this.TimerChangeUpDownBox = new System.Windows.Forms.NumericUpDown();
+            this.UniverseWidthChangeUpDown = new System.Windows.Forms.NumericUpDown();
+            this.UniverseHeightChangeUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.TimerUpDownBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UniversWidthUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UniversHeightUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerChangeUpDownBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniverseWidthChangeUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniverseHeightChangeUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Ok_button
@@ -61,26 +61,26 @@
             this.Cancel_button.Text = "Cancel";
             this.Cancel_button.UseVisualStyleBackColor = true;
             // 
-            // TimerUpDownBox
+            // TimerChangeUpDownBox
             // 
-            this.TimerUpDownBox.Location = new System.Drawing.Point(180, 46);
-            this.TimerUpDownBox.Name = "TimerUpDownBox";
-            this.TimerUpDownBox.Size = new System.Drawing.Size(75, 20);
-            this.TimerUpDownBox.TabIndex = 2;
+            this.TimerChangeUpDownBox.Location = new System.Drawing.Point(180, 46);
+            this.TimerChangeUpDownBox.Name = "TimerChangeUpDownBox";
+            this.TimerChangeUpDownBox.Size = new System.Drawing.Size(75, 20);
+            this.TimerChangeUpDownBox.TabIndex = 2;
             // 
-            // UniversWidthUpDown
+            // UniverseWidthChangeUpDown
             // 
-            this.UniversWidthUpDown.Location = new System.Drawing.Point(180, 72);
-            this.UniversWidthUpDown.Name = "UniversWidthUpDown";
-            this.UniversWidthUpDown.Size = new System.Drawing.Size(75, 20);
-            this.UniversWidthUpDown.TabIndex = 3;
+            this.UniverseWidthChangeUpDown.Location = new System.Drawing.Point(180, 72);
+            this.UniverseWidthChangeUpDown.Name = "UniverseWidthChangeUpDown";
+            this.UniverseWidthChangeUpDown.Size = new System.Drawing.Size(75, 20);
+            this.UniverseWidthChangeUpDown.TabIndex = 3;
             // 
-            // UniversHeightUpDown
+            // UniverseHeightChangeUpDown
             // 
-            this.UniversHeightUpDown.Location = new System.Drawing.Point(180, 98);
-            this.UniversHeightUpDown.Name = "UniversHeightUpDown";
-            this.UniversHeightUpDown.Size = new System.Drawing.Size(75, 20);
-            this.UniversHeightUpDown.TabIndex = 4;
+            this.UniverseHeightChangeUpDown.Location = new System.Drawing.Point(180, 98);
+            this.UniverseHeightChangeUpDown.Name = "UniverseHeightChangeUpDown";
+            this.UniverseHeightChangeUpDown.Size = new System.Drawing.Size(75, 20);
+            this.UniverseHeightChangeUpDown.TabIndex = 4;
             // 
             // label1
             // 
@@ -119,17 +119,17 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.UniversHeightUpDown);
-            this.Controls.Add(this.UniversWidthUpDown);
-            this.Controls.Add(this.TimerUpDownBox);
+            this.Controls.Add(this.UniverseHeightChangeUpDown);
+            this.Controls.Add(this.UniverseWidthChangeUpDown);
+            this.Controls.Add(this.TimerChangeUpDownBox);
             this.Controls.Add(this.Cancel_button);
             this.Controls.Add(this.Ok_button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Options";
             this.Text = "Options";
-            ((System.ComponentModel.ISupportInitialize)(this.TimerUpDownBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UniversWidthUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UniversHeightUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerChangeUpDownBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniverseWidthChangeUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UniverseHeightChangeUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,9 +139,9 @@
 
         private System.Windows.Forms.Button Ok_button;
         private System.Windows.Forms.Button Cancel_button;
-        private System.Windows.Forms.NumericUpDown TimerUpDownBox;
-        private System.Windows.Forms.NumericUpDown UniversWidthUpDown;
-        private System.Windows.Forms.NumericUpDown UniversHeightUpDown;
+        private System.Windows.Forms.NumericUpDown TimerChangeUpDownBox;
+        private System.Windows.Forms.NumericUpDown UniverseWidthChangeUpDown;
+        private System.Windows.Forms.NumericUpDown UniverseHeightChangeUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
