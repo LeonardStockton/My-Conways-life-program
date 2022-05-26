@@ -16,9 +16,9 @@ namespace My_Conways_Game_Of_Life
         int seed = 0;
 
         // Drawing colors
-        Color gridColor = Color.Black;
-        Color cellColor = Color.Brown;
-        Color backGround = Properties.Settings.Default.ColorSetting;
+        Color gridColor = Properties.Settings.Default.GridColor;
+        Color cellColor = Properties.Settings.Default.CellColor;
+        Color backGround = Properties.Settings.Default.BackgroundColorSetting;
         // The Timer class
         Timer timer = new Timer();
 
@@ -692,8 +692,27 @@ namespace My_Conways_Game_Of_Life
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Properties.Settings.Default.ColorSetting=backGround;
+            Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.GridColor = gridColor;
+            Properties.Settings.Default.BackgroundColorSetting = backGround;
             Properties.Settings.Default.Save();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //reloading the property defualts
+            Properties.Settings.Default.Reload();
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            backGround = Properties.Settings.Default.BackgroundColorSetting;
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            gridColor = Properties.Settings.Default.GridColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            backGround = Properties.Settings.Default.BackgroundColorSetting;
         }
     }
 }

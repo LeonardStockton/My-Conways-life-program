@@ -25,13 +25,12 @@ namespace My_Conways_Game_Of_Life.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Olive")]
-        public global::System.Drawing.Color ColorSetting {
+        public global::System.Drawing.Color BackgroundColorSetting {
             get {
-                return ((global::System.Drawing.Color)(this["ColorSetting"]));
+                return ((global::System.Drawing.Color)(this["BackgroundColorSetting"]));
             }
             set {
-                this["ColorSetting"] = value;
+                this["BackgroundColorSetting"] = value;
             }
         }
         
@@ -104,6 +103,30 @@ namespace My_Conways_Game_Of_Life.Properties {
             }
             set {
                 this["HightDefualt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 0, 0")]
+        public global::System.Drawing.Color CellColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CellColor"]));
+            }
+            set {
+                this["CellColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color GridColor {
+            get {
+                return ((global::System.Drawing.Color)(this["GridColor"]));
+            }
+            set {
+                this["GridColor"] = value;
             }
         }
     }
