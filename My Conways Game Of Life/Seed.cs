@@ -12,6 +12,12 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Seed : Form
     {
+        static private uint _SeedValue;
+        static public uint seedValue
+        {
+            get { return _SeedValue; }
+            set { _SeedValue = value; }
+        }
         public Seed()
         {
             InitializeComponent();
@@ -19,7 +25,7 @@ namespace My_Conways_Game_Of_Life
 
         private void SeedNumericUpDownTracker_ValueChanged(object sender, EventArgs e)
         {
-            FormHelper.seedValue=(uint)this.SeedNumericUpDownTracker.Value;
+           seedValue=(uint)this.SeedNumericUpDownTracker.Value;
         }
     }
 }

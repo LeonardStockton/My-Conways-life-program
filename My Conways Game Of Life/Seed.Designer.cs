@@ -84,6 +84,7 @@
             this.Controls.Add(this.Cancelbutton);
             this.Controls.Add(this.OKbutton);
             this.Name = "Seed";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seed";
             ((System.ComponentModel.ISupportInitialize)(this.SeedNumericUpDownTracker)).EndInit();
             this.ResumeLayout(false);

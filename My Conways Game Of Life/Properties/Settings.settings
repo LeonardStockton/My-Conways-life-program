@@ -14,5 +14,14 @@
     <Setting Name="Timer_Defualt" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="TimerDefualt" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="WidthDefualt" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="HightDefualt" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

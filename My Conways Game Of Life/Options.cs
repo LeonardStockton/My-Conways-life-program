@@ -12,36 +12,64 @@ namespace My_Conways_Game_Of_Life
 {
     public partial class Options : Form
     {
+        public int GetCellHight()
+        {
+            return (int)UniverseHeightChangeUpDown.Value;
+
+        }
+        public void SetCellhight(int cellHight)
+        {
+            UniverseHeightChangeUpDown.Value = cellHight;
+        }
+        public int GetCellWidth()
+        {
+            return (int)UniverseWidthChangeUpDown.Value;
+
+        }
+        public void SetCellWidth(int cellWidth)
+        {
+            UniverseWidthChangeUpDown.Value = cellWidth;
+        }
+
+        public int GetTimerClick()
+        {
+            return (int)TimerChangeUpDownBox.Value;
+                  
+        }
+        public void SetTimerclick(int timerClick)
+        {
+            TimerChangeUpDownBox.Value = timerClick;
+        }
+       
         public Options()
         {
             InitializeComponent();
         }
-        
-        private void TimerChangeUpDownBox_ValueChanged(object sender, EventArgs e)
-        {
-            //this.TimerChangeUpDownBox.Value = Properties.Settings.Default.Timer_Defualt;
-            FormHelper.timerClick = (uint)this.TimerChangeUpDownBox.Value;
-        }
 
-        private void UniverseWidthChangeUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            //this.UniverseWidthChangeUpDown.Value=Properties.Settings.Default.Universe_Width;
-            //this is the Y value
-            FormHelper.cellWidth = (uint)this.UniverseWidthChangeUpDown.Value;
-        }
+        //public void TimerChangeUpDownBox_ValueChanged(object sender, EventArgs e)
+        //{
+        //    timerClick = Properties.Settings.Default.Timer_Defualt;
 
-        private void UniverseHeightChangeUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            //this.UniverseHeightChangeUpDown.Value = Properties.Settings.Default.Universe_hight;
-            //this is the X value
-            FormHelper.cellHight = (uint)this.UniverseHeightChangeUpDown.Value;
-        }
+        //}
+
+        //private void UniverseWidthChangeUpDown_ValueChanged(object sender, EventArgs e)
+        //{
+           
+        //    //this is the Y value
+        //    cellWidth = (int)Properties.Settings.Default.Universe_Width;
+        //}
+
+        //private void UniverseHeightChangeUpDown_ValueChanged(object sender, EventArgs e)
+        //{
+        //    cellHight = (int)Properties.Settings.Default.Universe_hight;
+            
+        //}
 
         private void Options_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Properties.Settings.Default.Timer_Defualt = (uint)this.TimerChangeUpDownBox.Value;
-            Properties.Settings.Default.Universe_Width= (int)this.UniverseWidthChangeUpDown.Value;
-            Properties.Settings.Default.Universe_hight=(int)this.UniverseHeightChangeUpDown.Value ;
+        //    Properties.Settings.Default.Timer_Defualt = (int)this.TimerChangeUpDownBox.Value;
+        //    Properties.Settings.Default.Universe_Width= (int)this.UniverseWidthChangeUpDown.Value;
+        //    Properties.Settings.Default.Universe_hight=(int)this.UniverseHeightChangeUpDown.Value ;
 
 
           Properties.Settings.Default.Save();

@@ -18,7 +18,7 @@ namespace My_Conways_Game_Of_Life
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Brown;
-        Color backGround = Color.White;
+        Color backGround = Properties.Settings.Default.ColorSetting;
         // The Timer class
         Timer timer = new Timer();
 
@@ -175,7 +175,7 @@ namespace My_Conways_Game_Of_Life
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 RandomizeFromSeed();
-                seed = (int)FormHelper.seedValue;
+                seed = (int)Seed.seedValue;
                 SeedCounter.Text = " Seed: " + seed.ToString();
             }
         }
@@ -224,6 +224,7 @@ namespace My_Conways_Game_Of_Life
                 {
                     // this brush fills the panel Background
                     Brush backgroundBrush = new SolidBrush(backGround);
+                   
                     // A rectangle to represent each cell in pixels
                     RectangleF cellRect = RectangleF.Empty;
                     cellRect.X = x * cellWidth;
@@ -607,6 +608,7 @@ namespace My_Conways_Game_Of_Life
 
         private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            graphicsPanel1.BackColor = backGround;
             ColorDialog dlg = new ColorDialog();
             dlg.FullOpen = true;
             dlg.CustomColors = new int[] { };
@@ -648,13 +650,18 @@ namespace My_Conways_Game_Of_Life
 
         private void optionsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            int x= 0;
+            int y = 0;
             Options dlg = new Options();
-
+            dlg.SetTimerclick(timer.Interval);
+            dlg.SetCellhight(x);
+            dlg.SetCellWidth(y);
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                timer.Interval =(int)FormHelper.timerClick;
-                uint x = FormHelper.cellHight;
-                uint y = FormHelper.cellWidth;
+                
+                timer.Interval =dlg.GetTimerClick();
+                x = dlg.GetCellHight();
+                y = dlg.GetCellWidth();
                 universe = new bool[x,y];
                 scratchPad= new bool[x,y];
             }
@@ -683,14 +690,10 @@ namespace My_Conways_Game_Of_Life
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            Properties.Settings.Default.ColorSetting=backGround;
+            Properties.Settings.Default.Save();
         }
     }
 }

@@ -70,5 +70,41 @@ namespace My_Conways_Game_Of_Life.Properties {
                 this["Timer_Defualt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public decimal TimerDefualt {
+            get {
+                return ((decimal)(this["TimerDefualt"]));
+            }
+            set {
+                this["TimerDefualt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal WidthDefualt {
+            get {
+                return ((decimal)(this["WidthDefualt"]));
+            }
+            set {
+                this["WidthDefualt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal HightDefualt {
+            get {
+                return ((decimal)(this["HightDefualt"]));
+            }
+            set {
+                this["HightDefualt"] = value;
+            }
+        }
     }
 }
