@@ -705,6 +705,7 @@ namespace My_Conways_Game_Of_Life
             gridColor = Properties.Settings.Default.GridColor;
             cellColor = Properties.Settings.Default.CellColor;
             backGround = Properties.Settings.Default.BackgroundColorSetting;
+            graphicsPanel1.Invalidate();
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -713,6 +714,7 @@ namespace My_Conways_Game_Of_Life
             gridColor = Properties.Settings.Default.GridColor;
             cellColor = Properties.Settings.Default.CellColor;
             backGround = Properties.Settings.Default.BackgroundColorSetting;
+            graphicsPanel1.Invalidate();
         }
     }
 }
